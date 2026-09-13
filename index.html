@@ -39,6 +39,23 @@
 
 
     <!-- =====================================================
+         PRELOADER
+    ====================================================== -->
+
+    <div class="preloader" id="preloader">
+
+        <div class="preloader__ring"></div>
+
+        <div class="preloader__logo">
+            <img src="img/elige_hoy.png" alt="Psicólogos Elige Hoy">
+        </div>
+
+        <p class="preloader__text">Elige Hoy</p>
+
+    </div>
+
+
+    <!-- =====================================================
          HEADER
     ====================================================== -->
 
@@ -835,7 +852,7 @@
 
                 <a href="#" class="blog-card__image-link">
                     <img
-                        src="img/blog-1.jpg"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3fWjKPFwQLP85j20MTLGf07trX0ythY5s9xZ5fcb5TNxHmeflCJZY5WmR&s=10"
                         alt="Pareja hablando en terapia"
                         class="blog-card__image"
                     >
@@ -868,7 +885,7 @@
 
                 <a href="#" class="blog-card__image-link">
                     <img
-                        src="img/blog-2.jpg"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6uMVo5Iql1kONRFBUHncHrVJUyc5i1itQekcjcXQIACmAo5_0Dyomb6TC&s=10"
                         alt="Niños regresando a la escuela con mochilas"
                         class="blog-card__image"
                     >
@@ -898,6 +915,48 @@
             </article>
 
         </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TESTIMONIOS
+    ====================================================== -->
+
+    <section class="testimonials" id="testimonios">
+
+        <div class="testimonials__header">
+
+            <p class="testimonials__eyebrow">
+                <span class="testimonials__rule" aria-hidden="true"></span>
+                Confianza real
+                <span class="testimonials__rule" aria-hidden="true"></span>
+            </p>
+
+            <h2 class="testimonials__title">Lo que dicen nuestros pacientes</h2>
+
+        </div>
+
+        <div class="testimonials__viewer">
+
+            <button class="testimonials__arrow testimonials__arrow--prev" aria-label="Testimonio anterior">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+
+            <div class="testimonials__track" id="testimonialsTrack">
+                <div class="testimonials__track-inner" id="testimonialsTrackInner">
+                    <!-- Las tarjetas se generan desde script.js -->
+                </div>
+            </div>
+
+            <button class="testimonials__arrow testimonials__arrow--next" aria-label="Testimonio siguiente">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+
+        </div>
+
+        <div class="testimonials__dots" id="testimonialsDots"></div>
 
     </section>
 

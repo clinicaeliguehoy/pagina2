@@ -1,4 +1,41 @@
 /* =========================================================
+   PRELOADER
+========================================================= */
+
+(function () {
+
+    const preloader = document.querySelector("#preloader");
+
+    if (!preloader) return;
+
+    document.body.classList.add("no-scroll");
+
+    const minDisplayTime = 900; // ms mínimos para que no "parpadee"
+    const shownAt = performance.now();
+
+    function hidePreloader() {
+
+        const elapsed = performance.now() - shownAt;
+        const remaining = Math.max(minDisplayTime - elapsed, 0);
+
+        setTimeout(() => {
+            preloader.classList.add("is-hidden");
+            document.body.classList.remove("no-scroll");
+            setTimeout(() => preloader.remove(), 650);
+        }, remaining);
+
+    }
+
+    if (document.readyState === "complete") {
+        hidePreloader();
+    } else {
+        window.addEventListener("load", hidePreloader);
+    }
+
+})();
+
+
+/* =========================================================
    HEADER AL HACER SCROLL
 ========================================================= */
 
@@ -632,5 +669,210 @@ function handleSwipe() {
     );
 
     blogObserver.observe(blog);
+
+})();
+
+
+
+/* =========================================================
+   TESTIMONIOS
+========================================================= */
+
+(function () {
+
+    const section = document.querySelector(".testimonials");
+
+    if (!section) return;
+
+    const prefersReducedMotion =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+    // Reemplaza estos datos por tus reseñas reales
+    // (puedes copiarlas tal cual de Google Maps o Facebook).
+    const testimonials = [
+        {
+            name: "Zaldivar",
+            rating: 5,
+            quote: "Profesionales, muy atentos, un valor por la sesión.",
+            avatar: "img/elige_hoy.png"
+        },
+        {
+            name: "clausz surai",
+            rating: 5,
+            quote: "Mi hija es quien toma la terapia y desde que llega a la clínica expresa sentir seguridad, confianza y sobre todo le gusta... quedó encantada con las terapias alternativas ya que son muy diferentes a las sesiones que toma con su psicóloga anterior.",
+            avatar: "img/elige_hoy.png"
+        },
+        {
+            name: "Jess",
+            rating: 5,
+            quote: "Mi experiencia con la terapia ha sido buena, se mantiene un ambiente agradable en las áreas comunes así como en el consultorio, te da la confianza de seguir tu proceso en un ambiente adecuado.",
+            avatar: "img/elige_hoy.png"
+        },
+        {
+            name: "laura hinojoza",
+            rating: 5,
+            quote: "Es un lugar muy cálido, el trato desde que te reciben es muy bueno, y son muy atentas al recibirte. La profesional con la que nos tocó muy profesional y con mucha experiencia, te hace sentirte cómoda y en confianza.",
+            avatar: "img/elige_hoy.png"
+        },
+        {
+            name: "Grace Don",
+            rating: 4,
+            quote: "Muchas gracias, escucha y siento herramientas para volverme a ver a mí misma, siempre cuidando la esencia y responsabilidad y ética profesional.",
+            avatar: "img/elige_hoy.png"
+        }
+    ];
+
+
+    const trackInner = document.querySelector("#testimonialsTrackInner");
+    const viewer = document.querySelector(".testimonials__viewer");
+    const prevBtn = section.querySelector(".testimonials__arrow--prev");
+    const nextBtn = section.querySelector(".testimonials__arrow--next");
+    const dotsWrap = document.querySelector("#testimonialsDots");
+
+    if (!trackInner) return;
+
+    let currentIndex = 0;
+
+
+    function starsMarkup(rating) {
+
+        let stars = "";
+
+        for (let i = 1; i <= 5; i++) {
+            stars += i <= rating
+                ? '<ion-icon name="star"></ion-icon>'
+                : '<ion-icon class="is-empty" name="star-outline"></ion-icon>';
+        }
+
+        return stars;
+    }
+
+
+    function renderCards() {
+
+        trackInner.innerHTML = testimonials
+            .map((item, i) => `
+                <article class="testimonial-card" data-index="${i}">
+                    <div class="testimonial-card__avatar">
+                        <img src="${item.avatar}" alt="Foto de ${item.name}">
+                    </div>
+                    <h3 class="testimonial-card__name">${item.name}</h3>
+                    <div class="testimonial-card__stars">${starsMarkup(item.rating)}</div>
+                    <p class="testimonial-card__quote">"${item.quote}"</p>
+                </article>
+            `)
+            .join("");
+
+        trackInner.querySelectorAll(".testimonial-card").forEach((card) => {
+            card.addEventListener("click", () => {
+                goTo(parseInt(card.dataset.index, 10));
+            });
+        });
+    }
+
+
+    function renderDots() {
+
+        if (!dotsWrap) return;
+
+        dotsWrap.innerHTML = testimonials
+            .map((_, i) => `<button class="testimonials__dot${i === currentIndex ? " is-active" : ""}" aria-label="Ir al testimonio ${i + 1}"></button>`)
+            .join("");
+    }
+
+
+    function updateCarousel() {
+
+        const cards = trackInner.querySelectorAll(".testimonial-card");
+
+        cards.forEach((card, i) => {
+
+            card.classList.remove("testimonial-card--center", "testimonial-card--near");
+
+            const distance = Math.min(
+                Math.abs(i - currentIndex),
+                testimonials.length - Math.abs(i - currentIndex)
+            );
+
+            if (distance === 0) {
+                card.classList.add("testimonial-card--center");
+            } else if (distance === 1) {
+                card.classList.add("testimonial-card--near");
+            }
+        });
+
+
+        const card = cards[currentIndex];
+
+        if (card && viewer) {
+
+            const viewerWidth = viewer.clientWidth;
+            const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+            const offset = viewerWidth / 2 - cardCenter;
+
+            trackInner.style.transform = `translateX(${offset}px)`;
+        }
+
+        renderDots();
+    }
+
+
+    function goTo(index) {
+        currentIndex = (index + testimonials.length) % testimonials.length;
+        updateCarousel();
+    }
+
+
+    prevBtn && prevBtn.addEventListener("click", () => goTo(currentIndex - 1));
+    nextBtn && nextBtn.addEventListener("click", () => goTo(currentIndex + 1));
+
+    dotsWrap && dotsWrap.addEventListener("click", (e) => {
+        const dot = e.target.closest(".testimonials__dot");
+        if (!dot) return;
+        goTo([...dotsWrap.children].indexOf(dot));
+    });
+
+    window.addEventListener("resize", updateCarousel);
+
+
+    /* Efecto de palabras en el título */
+
+    const title = section.querySelector(".testimonials__title");
+
+    if (title && !prefersReducedMotion) {
+
+        const words = title.textContent.trim().split(/\s+/);
+
+        title.innerHTML = words
+            .map((word, i) => `<span class="testimonials__word" style="transition-delay:${i * 40}ms">${word}</span>`)
+            .join(" ");
+    }
+
+
+    /* Disparar animación de entrada al hacer scroll */
+
+    const observer = new IntersectionObserver(
+        (entries, obs) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    section.classList.add("is-visible");
+                    obs.unobserve(section);
+                }
+            });
+        },
+        { threshold: 0.15 }
+    );
+
+    observer.observe(section);
+
+
+    renderCards();
+    updateCarousel();
+
+    // Autoplay suave (se detiene si el usuario prefiere menos movimiento)
+    if (!prefersReducedMotion) {
+        setInterval(() => goTo(currentIndex + 1), 6000);
+    }
 
 })();
