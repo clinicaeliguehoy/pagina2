@@ -1,0 +1,2495 @@
+/* ===============  DESIGN TOKENS  =============== */
+:root {
+  /* Colores de marca */
+  --morado: #522c84;
+  --morado-oscuro: #3f2166;
+  --verde: #218b45;
+  --azul: #0077b6;
+  --texto: #222;
+  --gris-100: #f6f7f9;
+  --gris-300: #e6e7ea;
+
+  /* Tipografía fluida */
+  --fs-hero: clamp(1.8rem, 3vw + 1rem, 3rem);
+  --fs-h2: clamp(1.4rem, 1.2vw + 1rem, 2rem);
+  --fs-body: clamp(0.95rem, 0.3vw + 0.8rem, 1.05rem);
+
+  /* Efectos */
+  --radius-lg: 16px;
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.14);
+  --shadow-brand-sm: 0 8px 20px rgba(82, 44, 132, 0.18);
+  --shadow-brand-md: 0 14px 30px rgba(82, 44, 132, 0.22);
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --time: 240ms;
+}
+
+/* ===============  BASE  =============== */
+* {
+  transition: color var(--time) var(--ease), background var(--time) var(--ease),
+    transform var(--time) var(--ease), box-shadow var(--time) var(--ease);
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  background-color: #fff;
+  margin: 0;
+  font-family: "Poppins", Arial, sans-serif;
+  color: var(--texto);
+  font-size: var(--fs-body);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+.logo {
+  max-width: 90%;
+  height: auto;
+}
+
+/* Tipografía por rol */
+h1,
+h2,
+h3,
+.section-title h2 {
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 0.2px;
+}
+.subtitle,
+blockquote,
+.section-title p {
+  font-family: "Playfair Display", serif;
+}
+p,
+nav a,
+.btn,
+.info p,
+.blog-content p {
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===============  NAV / MENÚ  =============== */
+nav {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  border-radius: 0;
+  box-shadow: var(--shadow-sm);
+}
+.logo {
+  height: 80px;
+  margin-right: 20px;
+}
+
+.menu {
+  margin: 0;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  position: relative;
+}
+nav a {
+  display: inline-block;
+  color: #275f34;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+nav a:hover,
+nav a:focus-visible {
+  background-color: var(--morado);
+  color: #fff;
+  box-shadow: var(--shadow-brand-sm);
+  border-radius: 8px;
+}
+nav a:focus-visible {
+  outline: 3px solid var(--morado);
+  outline-offset: 2px;
+}
+
+/* Submenú */
+.menu .has-submenu {
+  position: relative;
+}
+.has-submenu-container {
+  position: relative;
+}
+.has-submenu-container .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 5px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.7)
+  );
+  backdrop-filter: blur(10px);
+  min-width: 220px;
+  padding: 12px 0;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  z-index: 999;
+}
+.has-submenu-container:hover .submenu {
+  display: block;
+}
+.menu .submenu a {
+  padding: 10px 16px;
+  display: block;
+  color: #275f34;
+  border-radius: 8px;
+  margin: 4px 10px;
+}
+.menu .submenu a:hover {
+  background: var(--morado);
+  color: #fff;
+}
+
+/* Hamburguesa */
+.hamburger {
+  display: none;
+  font-size: 30px;
+  color: #275f34;
+  padding: 10px 20px;
+  cursor: pointer;
+  z-index: 1100;
+  position: fixed;
+  top: 10px;
+  right: 20px;
+}
+
+/* ===============  HERO  =============== */
+.hero-fade {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Pantalla completa */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* contenido alineado a la derecha */
+  padding: 80px 5% 0; /* margen superior y lateral */
+  box-sizing: border-box;
+}
+
+/* Video de fondo */
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Overlay degradado */
+.hero-fade::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.25),
+    rgba(0, 0, 0, 0.35) 55%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  z-index: 0;
+}
+
+/* Contenido encima del video */
+.fade-content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  text-align: right;
+  max-width: 480px;
+  text-wrap: balance;
+}
+
+.fade-content h2 {
+  font-size: var(--fs-hero);
+  margin: 0 0 14px;
+  font-weight: 800;
+  line-height: 1.1;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Botón */
+.fade-content a.btn-mas {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  padding: 14px 22px;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.05rem;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.fade-content a.btn-mas:hover,
+.fade-content a.btn-mas:focus-visible {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: var(--morado);
+  transform: translateY(-2px);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .hero-fade {
+    justify-content: center; /* centrar contenido en móvil */
+    padding: 100px 20px 0;
+  }
+
+  .fade-content {
+    text-align: center;
+    max-width: 90%;
+  }
+}
+#rotating-text {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+#rotating-text.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===============  LOADER  =============== */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  transition: opacity 0.5s var(--ease);
+}
+#loader img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 50%;
+  animation: palpitar 1.2s infinite ease-in-out;
+  box-shadow: 0 0 20px rgba(82, 44, 132, 0.4);
+}
+#loader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes palpitar {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+/* ===============  BLOQUE EXPERIENCIA  =============== */
+.experiencia-container {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+/* Imagen ocupa menos espacio */
+.image-container {
+  flex: 0 0 50%; /* antes era 60%, ahora 50% */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container img {
+  width: 80%; /* reducimos tamaño visual */
+  height: auto; /* mantiene proporciones */
+  max-height: 600px; /* antes 600px */
+  border-radius: 20px;
+  object-fit: contain;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease;
+}
+
+.image-container img:hover {
+  transform: scale(1.05);
+}
+
+/* Texto ocupa 50% */
+.content {
+  flex: 0 0 50%; /* antes 40%, ahora 50% para equilibrar */
+}
+
+.titulo-experiencia {
+  font-size: 3rem;
+  line-height: 1.2;
+  color: #522c84;
+  font-weight: 700;
+}
+
+.titulo-experiencia .numero {
+  color: var(--morado, #522c84);
+  font-size: 4.5rem;
+  font-weight: 900;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    color: var(--morado, #2c843b);
+  }
+  50% {
+    transform: scale(1.2);
+    color: #46eb04;
+  }
+}
+
+.content p {
+  font-size: 1.2rem;
+  color: #444;
+  margin-top: 20px;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .experiencia-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .image-container,
+  .content {
+    flex: unset;
+    width: 100%;
+  }
+  .image-container img {
+    max-height: 300px;
+    width: 90%;
+  }
+  .titulo-experiencia {
+    font-size: 2.3rem;
+  }
+  .titulo-experiencia .numero {
+    font-size: 3.5rem;
+  }
+}
+/* Animación de entrada desde abajo */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Cuando esté visible */
+.fade-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===============  TESTIMONIOS  =============== */
+.testimonios {
+  padding: 50px 20px;
+  text-align: center;
+  background: #f9f9f9;
+}
+.testimonios h2 {
+  font-size: var(--fs-h2);
+  margin-bottom: 30px;
+  color: var(--azul);
+}
+
+.testimonios-carousel {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.testimonios-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.testimonio {
+  flex: 0 0 90%;
+  scroll-snap-align: center;
+  box-sizing: border-box;
+
+  /* 🎨 Efecto vidrio */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.85),
+    rgba(255, 255, 255, 0.55)
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  box-shadow: var(--shadow-sm);
+  will-change: transform, backdrop-filter;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease),
+    background 0.3s var(--ease);
+}
+
+.testimonio:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+
+  /* 🎨 Fondo morado degradado tipo barra */
+  background: linear-gradient(
+    135deg,
+    rgba(82, 44, 132, 0.9),
+    rgba(138, 77, 191, 0.85)
+  );
+  border-color: transparent;
+
+  color: #fff; /* Texto blanco para contraste */
+}
+
+.testimonio:hover h3,
+.testimonio:hover p,
+.testimonio:hover .estrellas {
+  color: #fff !important; /* texto y estrellas en blanco al hover */
+}
+
+@media (min-width: 768px) {
+  .testimonio {
+    flex: 0 0 300px;
+  }
+}
+
+.testimonio img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  object-fit: cover;
+  border: 3px solid var(--azul);
+}
+.testimonio h3 {
+  color: var(--azul);
+  margin-bottom: 10px;
+}
+.estrellas {
+  color: #ffc107;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+.testimonio p {
+  color: #333;
+  font-size: 1rem;
+}
+
+/* ===============  CLÍNICA (GALERÍA)  =============== */
+#clinica {
+  padding: 60px 20px;
+  background: #f8f8f8;
+  text-align: center;
+}
+#clinica h2 {
+  font-size: 2.2rem;
+  margin-bottom: 36px;
+  color: var(--morado);
+  animation: titleEntry 1s var(--ease) forwards;
+  letter-spacing: 2px;
+}
+.galeria-clinica {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+.galeria-clinica img {
+  opacity: 0;
+  transform: scale(0.9) translateY(24px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  border-radius: 12px;
+  object-fit: cover;
+  height: 220px;
+  width: 100%;
+}
+.galeria-clinica img.visible {
+  opacity: 1;
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+.galeria-clinica img:hover {
+  transform: scale(1.03) rotateZ(0.5deg);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===============  SECCIÓN UBICACIÓN  =============== */
+.ubicacion {
+  padding: 80px 20px;
+  background: linear-gradient(to right, #f6f4fb, #f1faff);
+  color: #333;
+}
+.ubicacion .titulo {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--morado);
+  opacity: 0;
+  transform: translateY(-24px);
+  animation: slideDown 1s var(--ease) forwards;
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ubicacion-contenido {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 24px;
+  align-items: start;
+  max-width: 1200px;
+  margin: 24px auto 0;
+}
+@media (max-width: 900px) {
+  .ubicacion-contenido {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ubicacion-contenido > div {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+}
+
+/* Mapa */
+.mapa {
+  min-width: 300px;
+  height: 400px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: var(--shadow-brand-sm);
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: fadeInLeft 1s var(--ease) forwards 0.3s;
+}
+.mapa iframe {
+  border: none;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+}
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Información */
+.info {
+  background: #fff;
+  border-radius: 20px;
+  padding: 26px 32px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+.info h3 {
+  font-size: 1.6rem;
+  color: var(--morado);
+  margin-bottom: 14px;
+}
+.info p {
+  font-size: 1.02rem;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+.info a {
+  color: var(--verde);
+  text-decoration: none;
+  font-weight: 600;
+}
+.info a:hover,
+.info a:focus-visible {
+  text-decoration: underline;
+}
+.info i {
+  min-width: 20px;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+/* Botón Maps */
+.btn-maps {
+  display: inline-block;
+  padding: 12px 22px;
+  background: var(--morado);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: var(--shadow-brand-sm);
+  margin-top: 14px;
+}
+.btn-maps:hover,
+.btn-maps:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-brand-md);
+}
+
+/* ===============  SECCIÓN PERSONAL (cards)  =============== */
+.personal-section {
+  padding: 60px 20px;
+  background: #fff;
+  text-align: center;
+}
+.personal-section h2 {
+  font-size: var(--fs-h2);
+  color: var(--morado);
+  margin-bottom: 32px;
+  font-weight: 800;
+}
+.personal-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+.personal-card {
+  background: #f5f5f7;
+  padding: 20px;
+  border-radius: 20px;
+  width: 280px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.personal-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+.personal-card img {
+  width: 190px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 14px;
+  border: 4px solid var(--morado);
+}
+.personal-card h3 {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+.personal-card p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.45;
+}
+
+/* Botones genéricos */
+.btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.btn-info {
+  background: var(--verde);
+}
+.btn-info:hover {
+  background: #1a6c36;
+}
+.btn-success {
+  background: #28a745;
+}
+.btn-success:hover {
+  background: #218838;
+}
+
+/* Modales / utilidades */
+.bg-purple {
+  background: #6a0dad !important;
+  color: #fff;
+}
+.modal-content {
+  box-shadow: 0 15px 40px rgba(106, 13, 173, 0.2);
+}
+.header {
+  text-align: center;
+  margin-top: 75px;
+}
+
+/* ===============   CARRUSEL INSTALACIONES   =============== */
+.instalaciones-carousel {
+  max-width: 600px;
+  width: 95%;
+  margin: 32px auto;
+  padding: 0 8px;
+}
+
+/* Imagen principal del carrusel */
+.carousel-inner img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(82, 44, 132, 0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Efecto al pasar el cursor sobre la imagen principal */
+.carousel-inner img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 32px rgba(82, 44, 132, 0.25);
+}
+
+/* Imágenes miniaturas / vistas previas */
+.img-carousel-mini {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  filter: saturate(0.9) brightness(0.96);
+}
+
+/* Efecto al pasar el cursor sobre miniaturas */
+.img-carousel-mini:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(82, 44, 132, 0.2);
+  filter: saturate(1.1) brightness(1.02);
+  border: 2px solid rgba(82, 44, 132, 0.3);
+}
+
+/* Imagen miniatura activa */
+.img-carousel-mini.active {
+  box-shadow: 0 0 0 3px #522c84, 0 6px 16px rgba(82, 44, 132, 0.22);
+  filter: saturate(1) brightness(1);
+}
+
+/* 📱 Adaptación a pantallas pequeñas */
+@media (max-width: 480px) {
+  .instalaciones-carousel {
+    margin: 20px auto;
+  }
+  .carousel-inner img {
+    border-radius: 12px;
+  }
+  .img-carousel-mini {
+    height: 120px;
+  }
+}
+
+/* ===============  WHATSAPP PILL  =============== */
+.whatsapp-float{
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: #25D366;          /* verde WhatsApp */
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 9999px;         /* pill */
+    box-shadow: 0 8px 20px rgba(0,0,0,.25);
+    font-weight: 600;
+    line-height: 1;
+  }
+  .whatsapp-float i{ font-size: 1.25rem; }
+  .whatsapp-float:hover{ background:#1ebe57; color:#fff; }
+
+  /* En pantallas pequeñas hazlo FAB circular */
+  @media (max-width: 480px){
+    .whatsapp-float{
+      width:56px; height:56px; padding:0;
+      justify-content:center; border-radius:50%;
+    }
+    .whatsapp-float span{ display:none; }
+  }
+
+  .whatsapp-float{
+  border: 1.5px solid #30a139e5;          /* color y grosor del contorno */
+  box-sizing: border-box;        
+}
+.whatsapp-float:hover{
+  border-color: #e9e9e9;           /* opcional */
+}
+
+
+/* ===============  MISIÓN & VISIÓN  =============== */
+
+.mission-vision .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mission-vision .section-title {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mission-vision .section-title h2 {
+  width: 100%;
+  margin: 0 auto 8px;
+  font-size: 2.2rem;
+  color: var(--morado);
+  font-weight: 800;
+  font-family: "Playfair Display", serif;
+}
+.mission-vision .section-title p {
+  font-family: "Poppins", sans-serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: #333;
+}
+
+/* ---- GRID 3-2-1 en lugar de flex-wrap ---- */
+.mission-vision .cards{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 columnas desktop */
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;   /* más ancho para que quepan las 3 */
+  margin: 0 auto;
+}
+
+.mission-vision .card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  padding: 26px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: none;                 /* ← sin tope de 400px */
+  text-align: center;
+  box-shadow: var(--shadow-brand-sm);
+  animation: palpitar 5s infinite ease-in-out;
+  display: flex;                   /* alturas más parejas */
+  flex-direction: column;
+}
+.mission-vision .card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-brand-md);
+}
+.mission-vision .card .icon {
+  font-size: 3rem;
+  color: #1db954;
+  margin-bottom: 16px;
+}
+.mission-vision .card h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 12px;
+  font-family: "Montserrat", sans-serif;
+}
+.mission-vision .card p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  font-family: "Lato", sans-serif;
+  flex: 1;                         /* el texto ocupa el alto disponible */
+}
+
+/* Responsivo: 2 columnas en tablet, 1 en móvil */
+@media (max-width: 1024px){
+  .mission-vision .cards{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px){
+  .mission-vision .cards{ grid-template-columns: 1fr; }
+}
+
+
+/* ===============  FOOTER  =============== */
+footer {
+  background: var(--morado);
+  padding: 48px 20px;
+  text-align: center;
+  position: relative;
+  color: #fff;
+}
+footer h2 {
+  margin-bottom: 18px;
+  font-size: 1.4rem;
+  animation: fadeIn 1s var(--ease);
+}
+.footer-logo img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 16px;
+  animation: zoomIn 1s var(--ease);
+}
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+.social-icons a {
+  color: #fff;
+  font-size: 28px;
+}
+.social-icons a:hover {
+  transform: translateY(-2px);
+  color: #1db954;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===============  RESPONSIVE NAV  =============== */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+  .has-submenu-container > a {
+    display: block;
+    text-align: center;
+    padding: 15px;
+    border-top: 1px solid #ccc;
+    color: #275f34;
+  }
+  .menu {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.5)
+    );
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  .menu.show {
+    display: flex;
+  }
+  .menu a {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    color: #275f34;
+  }
+  .has-submenu-container {
+    width: 100%;
+  }
+  .has-submenu-container .submenu {
+    position: static;
+    display: none;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+  .has-submenu-container .submenu a {
+    padding: 12px 20px;
+    display: block;
+    border-top: 1px solid #eee;
+    border-radius: 0;
+    margin: 0;
+    color: #275f34;
+  }
+  .has-submenu-container.active .submenu {
+    display: block;
+  }
+
+  .personal-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .personal-card {
+    width: 92%;
+  }
+
+  .carousel {
+    aspect-ratio: 4/3;
+  }
+
+  .content h1,
+  #blog h2,
+  .testimonios h2,
+  .ubicacion .titulo {
+    font-size: 1.8rem;
+  }
+}
+
+/* ===============  UTILIDADES / REVEAL  =============== */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Links: mejor subrayado al foco */
+a {
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* Quitar subrayado en todos los enlaces del menú */
+nav a,
+nav a:hover,
+nav a:focus,
+nav a:active {
+  text-decoration: none !important;
+}
+
+/* --- Nuestra ubicación: links sin subrayado --- */
+.ubicacion .info a,
+.ubicacion .info a:hover,
+.ubicacion .info a:focus,
+.ubicacion .info a:active {
+  text-decoration: none !important;
+}
+
+/* Mantén el color/énfasis sin subrayar */
+.ubicacion .info a {
+  color: #218b45;
+  font-weight: 600;
+}
+.ubicacion .info a:hover {
+  filter: brightness(0.95);
+}
+.ubicacion .info a:focus-visible {
+  outline: 3px solid #522c84;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Mantener color de texto en el botón WhatsApp siempre blanco */
+.whatsapp-pill-float,
+.whatsapp-pill-float:hover,
+.whatsapp-pill-float:focus,
+.whatsapp-pill-float:active {
+  color: #fff !important;
+}
+
+.whatsapp-pill-float,
+.whatsapp-pill-float:hover,
+.whatsapp-pill-float:focus,
+.whatsapp-pill-float:active {
+  text-decoration: none !important;
+}
+
+.whatsapp-pill-float {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+  will-change: transform;
+}
+
+/* Hover y focus accesible */
+.whatsapp-pill-float:hover {
+  transform: translateY(-2px);
+}
+.whatsapp-pill-float:focus-visible {
+  outline: 3px solid #52e084;
+  outline-offset: 3px;
+}
+
+/* Pulso suave opcional */
+@keyframes waPulse {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-1px) scale(1.02);
+  }
+}
+.whatsapp-pill-float.pulse {
+  animation: waPulse 2.2s ease-in-out infinite;
+}
+
+/* Estado inicial genérico */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  will-change: opacity, transform;
+}
+
+/* Variantes */
+.reveal[data-anim="fade-down"] {
+  transform: translateY(-16px);
+}
+.reveal[data-anim="fade-right"] {
+  transform: translateX(24px);
+}
+.reveal[data-anim="fade-left"] {
+  transform: translateX(-24px);
+}
+
+/* Cuando aparece */
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Pequeño “pop” al mapa e info */
+.ubicacion .mapa.visible,
+.ubicacion .info.visible {
+  transition-duration: 0.85s;
+}
+
+/* Respeto a reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+footer a {
+  color: white;
+  text-decoration: none; /* quita el subrayado si quieres */
+}
+
+footer a:hover {
+  color: #ddd; /* un gris clarito en hover, opcional */
+}
+
+/* ================= BLOG ================= */
+#blog {
+  max-width: 1200px;
+  margin: auto;
+  padding: 60px 20px;
+}
+
+#blog h2 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 50px;
+  color: var(--morado);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeDown 1s ease forwards;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes fadeDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== Cards del blog ========== */
+#blog .card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  transition: all 0.45s ease;
+  transform: translateY(40px);
+  opacity: 0;
+  animation: fadeUp 1s ease forwards;
+  position: relative;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+#blog .card:hover {
+  transform: translateY(-12px) scale(1.04);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Imagen portada */
+.portada-nota-thumb {
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+#blog .card:hover .portada-nota-thumb {
+  transform: scale(1.1);
+  filter: brightness(1.15) contrast(1.08);
+}
+
+/* Contenido */
+#blog .card-body {
+  padding: 24px;
+  transition: transform 0.3s ease;
+}
+
+#blog .card:hover .card-body {
+  transform: translateY(-4px);
+}
+
+#blog .card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--morado) !important;
+  margin-bottom: 14px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#blog .card-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #2c2c2c;
+}
+
+/* Fecha */
+#blog small {
+  color: #777 !important;
+}
+
+/* Botón Ver más */
+#blog .btn {
+  font-weight: 600;
+  border-radius: 30px;
+  padding: 12px 28px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(62, 38, 104, 0.25);
+}
+
+#blog .btn:hover {
+  background-color: #522d88 !important;
+  border-color: #522d88 !important;
+  box-shadow: 0 10px 25px rgba(62, 38, 104, 0.35);
+  transform: translateY(-3px);
+}
+
+/* Asegura el color del título dentro del card */
+#blog .card .card-title {
+  color: var(--morado) !important;
+}
+
+/* Tu clase actual en títulos dice 'text-azul': la forzamos a morado */
+.text-azul {
+  color: var(--morado) !important;
+}
+
+/* TESTIMONIOS: forzar morado */
+.testimonios {
+  --azul: var(--morado); /* cambia "azul" por morado solo aquí */
+}
+
+.testimonios h2,
+.testimonio h3 {
+  color: var(--morado) !important; /* títulos y nombres */
+}
+
+/* Enlaces dentro de testimonios */
+.testimonios a,
+.testimonios a:visited {
+  color: var(--morado) !important;
+  text-decoration: none;
+}
+.testimonios a:hover {
+  color: var(--morado) !important;
+  text-decoration: underline; /* o 'none' si prefieres sin subrayado */
+}
+
+/* === Header logo: tamaño + pulso + brillo === */
+.header .logo {
+  height: 90px; /* más grande que los 80px originales */
+  margin: 10px 0;
+
+  /* Brillo base suave */
+  filter: drop-shadow(0 0 8px rgba(150, 100, 220, 0.45));
+
+  /* Palpitación + brillo */
+  animation: logoPulse 2.2s ease-in-out infinite,
+    logoGlow 3s ease-in-out infinite;
+  will-change: transform, filter;
+}
+
+/* Un poco más discreto en móviles */
+@media (max-width: 768px) {
+  .header .logo {
+    height: 96px;
+  }
+}
+
+/* Palpitación */
+@keyframes logoPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Variación de brillo */
+@keyframes logoGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 8px rgba(150, 100, 220, 0.45));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(150, 100, 220, 0.7));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header .logo {
+    animation: none !important;
+  }
+}
+
+/* Transición suave del nav */
+nav {
+  transition: background 0.35s var(--ease), box-shadow 0.35s var(--ease),
+    border-color 0.35s var(--ease);
+}
+
+/* Estado scrolled: vidrio morado translúcido */
+nav.nav-glass {
+  background: rgba(82, 44, 132, 0.65); /* #522c84 con alpha */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 6px 22px rgba(82, 44, 132, 0.18);
+}
+
+/* Opcional: en móviles, un vidrio más claro para legibilidad */
+@media (max-width: 768px) {
+  nav.nav-glass {
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* Cuando el nav está en modo vidrio, los links se ponen blancos */
+nav.nav-glass a {
+  color: #fff;
+}
+
+/* Mantén el hover */
+nav.nav-glass a:hover,
+nav.nav-glass a:focus-visible {
+  background-color: rgba(255, 255, 255, 0.2); /* un blanco translúcido */
+  color: #fff;
+  box-shadow: none;
+}
+
+/* === MISIÓN & VISIÓN: cards transparentes -> morado en hover === */
+.mission-vision .card {
+  /* Estado base: “transparente” con borde sutil */
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border: 2px solid rgba(82, 44, 132, 0.28); /* morado con alpha */
+  box-shadow: none;
+  transition: background 0.28s var(--ease), color 0.28s var(--ease),
+    border-color 0.28s var(--ease), box-shadow 0.28s var(--ease),
+    transform 0.28s var(--ease);
+  animation: none; /* quitamos el palpitar aquí para que el hover luzca mejor */
+}
+
+/* Tipografía e ícono en estado base */
+.mission-vision .card h3 {
+  color: var(--morado);
+  transition: color 0.28s var(--ease);
+}
+.mission-vision .card p {
+  color: #334; /* legible sobre fondo de la sección */
+  transition: color 0.28s var(--ease);
+}
+.mission-vision .card .icon {
+  color: var(--morado);
+  transition: color 0.28s var(--ease);
+}
+
+/* Hover: fondo morado sólido, texto/ícono blancos, ligero “lift” */
+.mission-vision .card:hover {
+  background: var(--morado) !important;
+  border-color: transparent;
+  box-shadow: var(--shadow-brand-md);
+  transform: translateY(-6px);
+}
+.mission-vision .card:hover h3,
+.mission-vision .card:hover p,
+.mission-vision .card:hover .icon {
+  color: #ffffff;
+}
+
+/* === Misión & Visión: ENTRADA MENOS BORROSA === */
+/* Reducimos el blur inicial y el intermedio; mantenemos el resto del efecto */
+.mission-vision .reveal {
+  /* antes: blur(6px) */
+  filter: blur(2.5px);
+}
+
+/* Re-definimos los keyframes con menos blur */
+@keyframes mvTiltInLeft {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) translate(-40px, 20px) rotateY(-18deg)
+      rotateX(8deg) scale(0.92);
+    filter: blur(2.5px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0.8px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+@keyframes mvTiltInRight {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) translate(40px, 20px) rotateY(18deg)
+      rotateX(8deg) scale(0.92);
+    filter: blur(2.5px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0.8px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+@keyframes mvDropIn {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) translateY(-24px) rotateX(-10deg) scale(0.96);
+    filter: blur(2.5px);
+    letter-spacing: 0.06em;
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0.8px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+    letter-spacing: normal;
+  }
+}
+
+/* (Opcional) Si la quieres aún menos borrosa, baja 2.5px → 1.5px y 0.8px → 0.4px */
+
+/* Subrayado animado del H2 (bien notorio) */
+.mission-vision .section-title h2 {
+  position: relative;
+  overflow: visible;
+}
+.mission-vision .section-title h2::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 0;
+  height: 4px;
+  border-radius: 4px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, var(--morado), #8b5cf6);
+  opacity: 0.9;
+}
+.mission-vision .section-title h2.underline-on::after {
+  animation: mvUnderline 0.9s var(--ease) forwards 0.1s;
+}
+@keyframes mvUnderline {
+  0% {
+    width: 0;
+  }
+  70% {
+    width: 120%;
+  }
+  100% {
+    width: 80%;
+  }
+}
+
+/* Respeto preferencia de reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .mission-vision .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .mission-vision .section-title h2::after {
+    width: 80%;
+  }
+}
+
+/* Estado base para poder re-animar al volver a entrar */
+.mission-vision {
+  perspective: 1000px;
+}
+
+.mission-vision .reveal {
+  opacity: 0;
+  transform: translateY(40px) rotateX(12deg) scale(0.92);
+  filter: blur(6px);
+  will-change: opacity, transform, filter;
+}
+
+/* Keyframes (si aún no los pegaste) */
+@keyframes mvTiltInLeft {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) translate(-40px, 20px) rotateY(-18deg)
+      rotateX(8deg) scale(0.92);
+    filter: blur(6px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(1.5px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+@keyframes mvTiltInRight {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) translate(40px, 20px) rotateY(18deg)
+      rotateX(8deg) scale(0.92);
+    filter: blur(6px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(1.5px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+@keyframes mvDropIn {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) translateY(-24px) rotateX(-10deg) scale(0.96);
+    filter: blur(6px);
+    letter-spacing: 0.08em;
+  }
+  60% {
+    opacity: 1;
+    filter: blur(1.5px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+    letter-spacing: normal;
+  }
+}
+
+/* Subrayado animado del H2 */
+.mission-vision .section-title h2 {
+  position: relative;
+}
+.mission-vision .section-title h2::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 0;
+  height: 4px;
+  border-radius: 4px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, var(--morado), #8b5cf6);
+  opacity: 0.9;
+}
+.mission-vision .section-title h2.underline-on::after {
+  animation: mvUnderline 0.9s var(--ease) forwards 0.1s;
+}
+@keyframes mvUnderline {
+  0% {
+    width: 0;
+  }
+  70% {
+    width: 120%;
+  }
+  100% {
+    width: 80%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mission-vision .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .mission-vision .section-title h2::after {
+    width: 80%;
+  }
+}
+
+/* === Misión & Visión: usar la misma fuente de los títulos === */
+.mission-vision .section-title h2 {
+  font-family: "Montserrat", sans-serif; /* igual que h1/h2/h3 globales */
+  font-weight: 800;
+  font-size: var(--fs-h2); /* tamaño consistente con tus tokens */
+  letter-spacing: 0.2px; /* mismo tracking que el resto */
+  line-height: 1.1;
+}
+
+/* Quitar subrayado y color azul en enlaces del blog */
+#blog a,
+#blog a:visited {
+  color: var(--morado); /* o el color que quieras */
+  text-decoration: none !important;
+}
+
+#blog a:hover,
+#blog a:focus-visible {
+  color: var(--verde); /* color al pasar el mouse */
+  text-decoration: underline; /* o 'none' si no quieres nada */
+}
+
+/* SOLO en móviles: mantener enlaces del menú hamburguesa en verde */
+@media (max-width: 768px) {
+  nav.nav-glass a {
+    color: #275f34 !important; /* verde oscuro del menú */
+  }
+
+  nav.nav-glass .submenu a {
+    color: #218b45 !important; /* verde de marca */
+  }
+
+  nav.nav-glass .submenu a:hover {
+    background: var(--morado);
+    color: #fff !important;
+  }
+}
+
+/* TERAPIA PRESENCIAL Y EN LINEA */
+/* Tipografías profesionales */
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;700&display=swap");
+
+/* ===== TÍTULO Y LÍNEA ===== */
+.animate-title {
+  color: #522c84;
+  position: relative;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  font-family: "Poppins", sans-serif;
+}
+.animate-title.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Línea decorativa */
+.title-line {
+  display: block;
+  width: 0;
+  height: 4px;
+  background-color: #522c84;
+  margin: 10px auto 0;
+  border-radius: 2px;
+  transition: width 0.6s ease-out;
+}
+.title-line.show {
+  width: 60px;
+}
+
+/* ===== CARDS ===== */
+.terapia-card {
+  border: 2px solid transparent; /* borde inicial transparente */
+  border-radius: 1rem;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    opacity 0.8s ease, box-shadow 0.6s ease, border-color 0.6s ease;
+  background-color: #fff;
+}
+
+/* Hover: borde morado, zoom y sombra */
+.terapia-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(82, 45, 136, 0.35);
+  border-color: #522c84;
+}
+
+/* Animación de entrada desde izquierda/derecha */
+.reveal-left {
+  transform: translateX(-50px) translateY(30px) scale(0.95);
+}
+.reveal-right {
+  transform: translateX(50px) translateY(30px) scale(0.95);
+}
+
+.reveal-left.show,
+.reveal-right.show {
+  transform: translateX(0) translateY(0) scale(1);
+  opacity: 1;
+  box-shadow: 0 25px 50px rgba(82, 45, 136, 0.25);
+}
+
+/* ===== PÁRRAFOS INTERNOS ===== */
+.terapia-card p {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Aparecen al entrar en viewport o hover */
+.terapia-card.show p,
+.terapia-card:hover p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== ÍCONOS FLOTANTES ===== */
+.float-icon {
+  animation: float 2s ease-in-out infinite;
+  color: #28a745;
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.terapia-card:hover .icon-animation {
+  transform: rotate(15deg) scale(1.2);
+  transition: transform 0.6s ease;
+}
+/* Tarjetas con borde animado al entrar */
+.terapia-card {
+  border: 2px solid transparent; /* borde inicial transparente */
+  border-radius: 1rem;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    opacity 0.8s ease, box-shadow 0.6s ease, border-color 0.8s ease;
+  background-color: #fff;
+  position: relative;
+}
+
+/* Borde animado usando pseudo-elemento */
+.terapia-card::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid #8b5cf6;
+  border-radius: 1rem;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+  pointer-events: none;
+}
+
+/* Cuando entra al viewport o hover */
+.terapia-card.show::before,
+.terapia-card:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* Hover: zoom + sombra */
+.terapia-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(82, 45, 136, 0.35);
+}
+
+/* Cards animadas desde izquierda/derecha */
+.reveal-left {
+  transform: translateX(-50px) translateY(30px) scale(0.95);
+}
+.reveal-right {
+  transform: translateX(50px) translateY(30px) scale(0.95);
+}
+
+.reveal-left.show,
+.reveal-right.show {
+  transform: translateX(0) translateY(0) scale(1);
+  opacity: 1;
+  box-shadow: 0 25px 50px rgba(82, 45, 136, 0.25);
+}
+
+/* Párrafos internos */
+.terapia-card p {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.terapia-card.show p,
+.terapia-card:hover p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Submenú estable (desktop) y usable (móvil) --- */
+nav .has-submenu-container {
+  position: relative;
+}
+
+/* “Puente” invisible para que no se pierda el hover al bajar al submenú */
+nav .has-submenu-container::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 0; /* sin puente por defecto */
+}
+nav .has-submenu-container:hover::after {
+  height: 10px;
+} /* puente de 10px */
+
+/* Panel del submenú */
+nav .submenu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  min-width: 240px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px 0;
+  margin: 0; /* ¡sin margenes que abran huecos! */
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+  border: 1px solid rgba(82, 44, 132, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.18s ease, transform 0.18s ease,
+    visibility 0s linear 0.18s;
+  pointer-events: none;
+  z-index: 2000;
+}
+nav .submenu a {
+  display: block;
+  padding: 10px 16px;
+  white-space: nowrap;
+  color: #275f34;
+  text-decoration: none;
+}
+nav .submenu a:hover {
+  background: #522c84;
+  color: #fff;
+}
+
+/* Mostrar en DESKTOP por hover y por focus (accesible) */
+@media (hover: hover) {
+  nav .has-submenu-container:hover > .submenu,
+  nav .has-submenu-container:focus-within > .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+}
+
+/* MÓVIL: el submenú se hace “estático” y solo se abre con .active */
+@media (max-width: 980px) {
+  nav .submenu {
+    position: static;
+    top: auto;
+    left: auto;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    display: none;
+  }
+  nav .has-submenu-container.active > .submenu {
+    display: block;
+  }
+}
+
+/* ===== Nuestros Valores (mismo estilo que mission-vision) ===== */
+.valores .card {
+  text-align: left;
+} /* títulos centrados por la card, pero texto/lista a la izquierda */
+
+.values-list {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  columns: 1;
+  column-gap: 28px;
+}
+@media (min-width: 900px) {
+  .values-list {
+    columns: 2;
+  } /* 2 columnas en pantallas grandes */
+}
+.values-list li {
+  break-inside: avoid;
+  margin: 8px 0 10px;
+  line-height: 1.55;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  padding-left: 28px;
+  position: relative;
+  color: #444;
+}
+.values-list li::before {
+ content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 0.1rem;
+    font-size: 0.95rem;
+    color: #1de107;
+    text-shadow: 0 0 10px rgba(44, 132, 56, 0.25);
+}
+
+/* Icono superior coherente con M/V */
+.valores .card .icon {
+  font-size: 2.6rem;
+  color: var(--morado);
+  margin-bottom: 10px;
+  filter: drop-shadow(0 6px 16px rgba(82, 44, 132, 0.25));
+}
+
+/* Texto blanco al pasar el cursor en "Nuestros valores",
+   igual que en Misión / Visión */
+.valores .glass-card * {
+  transition: color 0.2s ease;
+} /* suaviza cambio */
+
+.valores .glass-card:hover,
+.valores .glass-card:focus-within {
+  color: #fff; /* color por defecto dentro de la card */
+}
+
+/* Fuerza blanco en elementos que tenían color propio */
+.valores .glass-card:hover h2,
+.valores .glass-card:hover h3,
+.valores .glass-card:hover p,
+.valores .glass-card:hover li,
+.valores .glass-card:hover strong,
+.valores .glass-card:hover a,
+.valores .glass-card:hover span {
+  color: #fff;
+}
+
+/* Icono superior y checks de la lista en blanco también */
+.valores .glass-card:hover .icon {
+  color: #fff;
+  filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.35));
+}
+.valores .glass-card:hover .values-list li::before {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+}
+
+
+/* ==================== AJUSTES RESPONSIVE ==================== */
+
+/* Teléfonos muy pequeños */
+@media (max-width: 576px) {
+  body {
+    font-size: 14px;
+  }
+  nav {
+    flex-direction: column;
+    padding: 10px;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    text-align: center;
+  }
+  section {
+    padding: 30px 15px;
+  }
+  h1,
+  h2 {
+    font-size: 1.6rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 992px) {
+  body {
+    font-size: 15px;
+  }
+  .container {
+    padding: 0 15px;
+  }
+}
+
+/* Pantallas grandes */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1500px;
+  }
+  body {
+    font-size: 18px;
+  }
+  section {
+    padding: 80px 40px;
+  }
+}
+
+/* Barra de eslogan superior */
+.top-slogan{
+  display:flex; align-items:center; justify-content:center; gap:.6rem;
+  padding:16px 20px;
+  background:#fff;
+  color:#522c84;
+  font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight:700;
+  font-size:25px;
+  line-height:1.3;
+  text-align:center;
+  border:none;
+
+  /* ✨ BRILLO ANIMADO */
+  animation: brillar 2s ease-in-out infinite alternate;
+}
+
+/* Animación de brillo */
+@keyframes brillar {
+  from {
+    text-shadow: 
+      0 0 4px rgba(82, 44, 132, 0.4),
+      0 0 8px rgba(82, 44, 132, 0.3);
+  }
+  to {
+    text-shadow: 
+      0 0 8px rgba(82, 44, 132, 0.7),
+      0 0 16px rgba(82, 44, 132, 0.5),
+      0 0 24px rgba(82, 44, 132, 0.4),
+      0 0 35px rgba(82, 44, 132, 0.3);
+  }
+}
+
+.top-slogan i{ opacity:.95; font-size:1em }
+
+@media (max-width:480px){
+  .top-slogan{ font-size:20px; padding:12px 16px; }
+}
+
+
+/* Centrar la única card de #valores */
+.valores .cards{
+  display: flex;              /* override al grid de mission-vision */
+  justify-content: center;    /* centra horizontalmente */
+}
+
+.valores .card{
+  max-width: 900px;           /* el ancho que ya venías usando */
+  margin: 0 auto;             /* seguridad extra para centrar */
+}
+
+.eslogan-script{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; /* caligrafía elegante */
+  font-size: 2rem;                     /* ajusta a tu diseño */
+  line-height: 1.1;
+  letter-spacing: .5px;                /* opcional: suaviza el trazo */
+  font-weight: 400;
+}
+
+
+.top-slogan i{ 
+  margin: 0 .4rem; 
+  transform: translateY(2px);          /* alinea comillas con el texto */
+}
+
+/* Opcional: tamaño un poco menor en móvil */
+@media (max-width: 480px){
+  .eslogan-script{ font-size: 1.6rem; }
+}
+
+/* WhatsApp button: sin subrayado ni borde al enfocarlo */
+.whatsapp-float,
+.whatsapp-float:hover,
+.whatsapp-float:focus,
+.whatsapp-float:active {
+  text-decoration: none !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Por si el subrayado viene del texto interno */
+.whatsapp-float * {
+  text-decoration: none !important;
+}
+
+/* Quita el “flash” al tocar en móviles */
+.whatsapp-float {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* === Botón "Más información" con verde translúcido === */
+.btn-mas,
+.fade-content a.btn-mas {
+  /* Fallback sólido por si algo no soporta transparencia */
+  background-color: #10a141;
+  border-color: #10a141;
+
+  /* Estado normal (translúcido) */
+  background-color: rgba(33, 139, 69, 0.32) !important; /* ~32% opacidad */
+  border: 1.5px solid rgba(33, 139, 69, 0.65) !important;
+  color: #fff !important;
+
+  /* Glass: deja ver y ligeramente difumina el video/fondo */
+  -webkit-backdrop-filter: saturate(120%) blur(6px);
+  backdrop-filter: saturate(120%) blur(6px);
+
+  /* Detalles */
+  text-decoration: none !important;
+  outline: 0 !important;
+  box-shadow: 0 6px 16px rgba(33, 139, 69, 0.25);
+}
+
+/* Hover/Focus: un poco más “llenito” */
+.btn-mas:hover,
+.btn-mas:focus,
+.fade-content a.btn-mas:hover,
+.fade-content a.btn-mas:focus {
+  background-color: rgba(33, 139, 69, 0.50) !important; /* más opaco al pasar */
+  border-color: rgba(33, 139, 69, 0.85) !important;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+/* Elevar comillas del eslogan */
+.top-slogan {
+  display: flex;
+  justify-content: center;
+  align-items: center;   /* centramos verticalmente el conjunto */
+  gap: .5rem;
+}
+
+.top-slogan .fa-quote-left,
+.top-slogan .fa-quote-right {
+  position: relative;
+  top: -0.40em;          /* 👈 súbelas (ajusta entre -0.20em y -0.40em a tu gusto) */
+  font-size: 1.2em;      /* opcional: un pelín más grandes */
+  color: var(--morado, #522c84);
+  opacity: .95;
+}
+
+.top-slogan .eslogan-script {
+  line-height: 2.05;     /* reduce altura para que se vea más “pegado” */
+}
+
+/* Ajuste fino en móviles si se ven demasiado altas */
+@media (max-width: 640px) {
+  .top-slogan .fa-quote-left,
+  .top-slogan .fa-quote-right { top: -0.22em; }
+}
+
+/* Acerca el eslogan a la siguiente sección SIN tocar otras secciones */
+.top-slogan{
+  /* mantén tu estilo actual y solo ajusta el espacio bajo */
+  margin-bottom: -30px !important;   /* prueba entre -8px y -28px */
+  padding-bottom: 0 !important;
+}
+
+/* Fade + desplazamiento desde la izquierda para reveal-left/right */
+.reveal-left,
+.reveal-right {
+  opacity: 0;  /* importante para que se vea el fade */
+  transition: opacity 600ms ease, transform 700ms cubic-bezier(.2,.7,.2,1);
+}
+
+/* Ya tienes reglas que ponen transform inicial; aquí confirmamos el final */
+.reveal-left.show,
+.reveal-right.show {
+  opacity: 1;
+}
+
+/* Quitar tarjeta blanca detrás */
+.experiencia-section .image-container{
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  position: relative;
+}
+.experiencia-section .image-container::before,
+.experiencia-section .image-container::after{
+  content: none !important; /* por si había pseudo-elementos decorativos */
+}
+
+/* La imagen ocupa todo y hereda el borde redondeado del contenedor */
+.experiencia-section .image-container img{
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: inherit;          /* mantiene esquinas redondeadas */
+  box-shadow: 0 12px 28px rgba(0,0,0,.18); /* sombra directamente en la foto (opcional) */
+  background: transparent;         /* por si trae fondo */
+}
+
+/* ====== Misión/Visión/Objetivo: línea corta como la de "Terapias" ====== */
+
+/* quita la línea larga previa (por si estaba en el contenedor o como borde) */
+.mission-vision .section-title,
+.mission-vision .section-title h2 {
+  border-bottom: 0 !important;
+  position: relative;
+  padding-bottom: 14px; /* deja un pequeño respiro para la línea */
+}
+.mission-vision .section-title::before,
+.mission-vision .section-title::after {
+  content: none !important; /* si la línea grande estaba con pseudo-elemento */
+}
+
+/* línea pequeña centrada bajo el H2 */
+.mission-vision .section-title h2::after{
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%) scaleX(.2);
+  width: 64px;                 /* largo de la línea */
+  height: 4px;                 /* grosor */
+  border-radius: 999px;
+  background: linear-gradient(90deg,#522c84 0%, #7c4ed6 100%);
+  box-shadow: 0 2px 10px rgba(82,44,132,.25);
+  opacity: 0;
+  transition: transform 700ms cubic-bezier(.2,.7,.2,1),
+              opacity 600ms ease;
+}
+
+/* mantenemos tu animación: cuando el JS pone .underline-on, la línea aparece */
+.mission-vision .section-title h2.underline-on::after{
+  opacity: 1;
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* un poco más corta en móviles si quieres */
+@media (max-width: 640px){
+  .mission-vision .section-title h2::after{ width: 44px; height: 3px; }
+}
+
+/* Tamaño más compacto + bordes redondeados y sin “tarjeta” blanca */
+.experiencia-section .image-container{
+  /* tamaño: ajusta el 42vw y 520px a tu gusto */
+  flex: 0 0 clamp(280px, 42vw, 520px);
+  max-width: clamp(280px, 42vw, 520px);
+  border-radius: 24px;     /* ← bordes como antes */
+  overflow: hidden;        /* recorta la imagen a ese radio */
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+/* La imagen ocupa el contenedor y respeta el radio */
+.experiencia-section .image-container img{
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: inherit;
+  box-shadow: 0 12px 28px rgba(0,0,0,.18); /* sombra en la foto (opcional) */
+}
+
+/* En móvil, un poco más pequeña si quieres */
+@media (max-width: 640px){
+  .experiencia-section .image-container{
+    flex-basis: clamp(240px, 86vw, 380px);
+    max-width: clamp(240px, 86vw, 380px);
+    border-radius: 18px;
+  }
+}
+
+/* --- Quitar línea larga y usar una corta centrada --- */
+.mission-vision .section-title,
+.mission-vision .section-title h2{
+  border-bottom: 0 !important;
+  position: relative;
+  padding-bottom: 14px; /* espacio para la línea */
+}
+
+/* Estado base de la línea corta */
+.mission-vision .section-title h2::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-2px;
+  width:64px !important;          /* ← corta */
+  height:4px !important;
+  border-radius:999px;
+  background: linear-gradient(90deg, var(--morado), #8b5cf6);
+  transform: translateX(-50%) scaleX(0);  /* escondida */
+  opacity:0;
+  transition: transform 700ms cubic-bezier(.2,.7,.2,1), opacity 600ms ease;
+  animation: none !important;            /* ← anula mvUnderline */
+}
+
+/* Al activar underline-on (tu JS ya lo hace), aparece la línea corta */
+.mission-vision .section-title h2.underline-on::after{
+  animation: none !important;            /* ← por si acaso */
+  transform: translateX(-50%) scaleX(1);
+  opacity:1;
+}
+
+/* Opcional: más corta en móvil */
+@media (max-width:640px){
+  .mission-vision .section-title h2::after{ width:44px !important; height:3px !important; }
+}
+
+/* Espacio superior antes del título "Nuestros Valores" */
+.mission-vision.valores{
+  padding-top: clamp(16px, 3.2vw, 36px) !important; /* crea separación real (no colapsa) */
+}
+
+.mission-vision.valores .section-title{
+  margin-top: 0 !important; /* por si alguna regla anterior le metía margen negativo */
+}
+
+/* Botón WA dentro de las cards TERAPIAS */
+.wa-card-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  background:#25D366;
+  color:#fff !important;
+  text-decoration:none !important;
+  padding:12px 18px;
+  border-radius:9999px;
+  font-weight:700;
+  line-height:1;
+  border:1.5px solid #30a139e5;
+  box-shadow:0 8px 20px rgba(0,0,0,.25);
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.wa-card-btn i{ font-size:1.1rem; }
+.wa-card-btn:hover{ background:#1ebe57; transform:translateY(-2px); }
+.wa-card-btn:focus-visible{ outline:3px solid #52e084; outline-offset:3px; }
+
+.terapia-card .wa-cta-wrap{
+  margin-top:18px;
+  display:flex;
+  justify-content:center;
+}
+
+@media (max-width:480px){
+  .wa-card-btn{ width:100%; justify-content:center; }
+}
+
+/* Mantener "Blog" con mayúscula inicial (sin todo en mayúsculas) */
+#blog .text-center h2,
+#blog h2.animate-title {
+  text-transform: none !important;
+}
+
+#blog { margin-top: -100px; }  /* usa con cuidado */

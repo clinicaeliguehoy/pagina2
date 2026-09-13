@@ -1,0 +1,60 @@
+# Translation of Themes - Prime Travel in Spanish (Mexico)
+# This file is distributed under the same license as the Themes - Prime Travel package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2023-11-02 13:41:03+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.3\n"
+"Language: es_MX\n"
+"Project-Id-Version: Themes - Prime Travel\n"
+
+#. Theme Name of the theme
+#: style.css
+#, gp-priority: high
+msgid "Prime Travel"
+msgstr "Prime Travel"
+
+#: functions.php:95
+msgid "Contact Image"
+msgstr "Imagen de contacto"
+
+#: functions.php:72
+msgid "Email Label"
+msgstr "Etiqueta de correo electrónico"
+
+#: functions.php:46
+msgid "Phone Label"
+msgstr "Etiqueta del teléfono"
+
+#: functions.php:401
+msgid "%1$s Powered by %2$s%3$s"
+msgstr "%1$s Impulsado por %2$s%3$s"
+
+#: functions.php:399
+msgid " Prime Travel by "
+msgstr " Prime Travel por "
+
+#: functions.php:96
+msgid "Recommended image size is 50px by 50px."
+msgstr "El tamaño de imagen recomendado es de 50px por 50px."
+
+#. Author of the theme
+#: style.css functions.php:400
+#, gp-priority: low
+msgid "WP Travel Engine"
+msgstr "WP Travel Engine"
+
+#. Theme URI of the theme
+#: style.css
+#, gp-priority: low
+msgid "https://wptravelengine.com/wordpress-travel-themes/prime-travel/"
+msgstr "https://wptravelengine.com/wordpress-travel-themes/prime-travel/"
+
+#. Author URI of the theme
+#: style.css
+#, gp-priority: low
+msgid "https://wordpress.org/themes/author/wptravelengine/"
+msgstr "https://es-mx.wordpress.org/themes/author/wptravelengine/"

@@ -1,0 +1,16 @@
+[11-Feb-2026 16:47:55 UTC] PHP Warning:  Undefined property: WP_Ajax_Upgrader_Skin::$api in /home2/eligehoy/public_html/blog/wp-admin/includes/class-theme-upgrader.php on line 160
+[11-Feb-2026 16:47:56 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/backuply-pro/functions.php on line 218
+[11-Feb-2026 16:47:56 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/cookieadmin-pro/includes/functions.php on line 290
+[11-Feb-2026 16:47:56 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/gosmtp-pro/functions.php on line 281
+[11-Feb-2026 16:47:56 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/loginizer-security/functions.php on line 71
+[11-Feb-2026 16:47:56 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/pagelayer-pro/main/functions.php on line 294
+[11-Feb-2026 16:47:56 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/speedycache-pro/functions.php on line 217
+[11-Feb-2026 16:47:56 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/siteseo-pro/functions.php on line 96
+[11-Feb-2026 16:48:48 UTC] PHP Warning:  Undefined property: WP_Ajax_Upgrader_Skin::$api in /home2/eligehoy/public_html/blog/wp-admin/includes/class-theme-upgrader.php on line 160
+[11-Feb-2026 16:48:49 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/backuply-pro/functions.php on line 218
+[11-Feb-2026 16:48:49 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/cookieadmin-pro/includes/functions.php on line 290
+[11-Feb-2026 16:48:49 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/gosmtp-pro/functions.php on line 281
+[11-Feb-2026 16:48:49 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/loginizer-security/functions.php on line 71
+[11-Feb-2026 16:48:49 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/pagelayer-pro/main/functions.php on line 294
+[11-Feb-2026 16:48:49 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/speedycache-pro/functions.php on line 217
+[11-Feb-2026 16:48:52 UTC] PHP Warning:  Undefined array key "action" in /home2/eligehoy/public_html/blog/wp-content/plugins/siteseo-pro/functions.php on line 96

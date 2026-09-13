@@ -1,0 +1,1 @@
+[18-Feb-2026 18:34:44 UTC] PHP Warning:  Undefined array key "captcha_code" in /home2/eligehoy/public_html/blog/wp-content/plugins/captcha-code-authentication/wpCaptcha.php on line 301
