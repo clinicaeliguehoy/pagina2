@@ -1,4 +1,85 @@
 /* =========================================================
+   REVELADO GENÉRICO DE TÍTULOS (palabra por palabra)
+========================================================= */
+
+(function () {
+
+    const prefersReducedMotion =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) return;
+
+    function revealWords(el, stagger) {
+
+        const nodes = Array.from(el.childNodes);
+        el.innerHTML = "";
+        let wordIndex = 0;
+
+        nodes.forEach((node) => {
+
+            if (node.nodeType === Node.TEXT_NODE) {
+
+                const pieces = node.textContent.split(/(\s+)/);
+
+                pieces.forEach((piece) => {
+
+                    if (piece.trim() === "") {
+                        el.appendChild(document.createTextNode(piece));
+                        return;
+                    }
+
+                    const span = document.createElement("span");
+                    span.className = "reveal-word";
+                    span.textContent = piece;
+                    span.style.transitionDelay = `${wordIndex * stagger}ms`;
+                    el.appendChild(span);
+                    wordIndex++;
+
+                });
+
+            } else {
+
+                const wrapper = document.createElement("span");
+                wrapper.className = "reveal-word";
+                wrapper.style.transitionDelay = `${wordIndex * stagger}ms`;
+                wrapper.appendChild(node.cloneNode(true));
+                el.appendChild(wrapper);
+                wordIndex++;
+
+            }
+
+        });
+    }
+
+    function setupReveal(selector, stagger) {
+
+        const el = document.querySelector(selector);
+        if (!el) return;
+
+        revealWords(el, stagger || 45);
+
+        const observer = new IntersectionObserver(
+            (entries, obs) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        el.classList.add("is-visible");
+                        obs.unobserve(el);
+                    }
+                });
+            },
+            { threshold: 0.3 }
+        );
+
+        observer.observe(el);
+    }
+
+    setupReveal(".therapies__title-reveal", 60);
+    setupReveal(".gallery__title", 45);
+
+})();
+
+
+/* =========================================================
    PRELOADER
 ========================================================= */
 
